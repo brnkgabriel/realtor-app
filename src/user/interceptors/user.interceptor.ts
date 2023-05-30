@@ -1,5 +1,5 @@
 import { CallHandler, ExecutionContext, NestInterceptor } from "@nestjs/common";
-import * as jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 export class UserInterceptor implements NestInterceptor {
   async intercept(
@@ -8,7 +8,7 @@ export class UserInterceptor implements NestInterceptor {
   ):Promise<any> {
     const request = context.switchToHttp().getRequest()
     const token = request?.headers?.authorization?.split("Bearer ")[1]
-    const user = await jwt.decode(token)
+    const user = await jwt.decode(token) 
     request.user = user
     return handler.handle()
   }

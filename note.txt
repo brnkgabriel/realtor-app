@@ -28,3 +28,5 @@ Check your build log to be sure what the problem is
   }
   ...
 }
+- It could be you need to "pnpm install -D @types/jsonwebtoken" to fix a jwt.decode is not a function error. And also import it like so:
+import jwt from "jsonwebtoken" instead of import * as jwt from "jsonwebtoken"
