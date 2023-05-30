@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int @id @default(autoincrement())
+  name            String
+  phone           String
+  email           String @unique
+  password        String
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  userType        UserType
+  homes           Home[]
+  buyerMessages   Message[] @relation("buyerMessages")
+  realtorMessages Message[] @relation("realtorMessages")
+}
+
+model Home {
+  id              Int @id @default(autoincrement())
+  address         String
+  numOfBedrooms   Int
+  numOfBathrooms  Float
+  city            String
+  listedDate      DateTime @default(now())
+  price           Float
+  landSize        Float
+  propertyType    PropertyType
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  images          Image[]
+  realtorId       Int
+  realtor         User @relation(fields: [realtorId], references: [id])
+  messages        Message[]
+}
+
+model Image {
+  id              Int @id @default(autoincrement())
+  url             String
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  homeId          Int 
+  home            Home @relation(fields: [homeId], references: [id])
+}
+
+model Message {
+  id              Int @id @default(autoincrement())
+  message         String
+  homeId          Int 
+  home            Home @relation(fields: [homeId], references: [id])
+  realtorId       Int
+  realtor         User @relation("buyerMessages", fields: [realtorId], references: [id])
+  buyerId         Int
+  buyer           User @relation("realtorMessages", fields: [buyerId], references: [id])
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+}
+
+enum PropertyType {
+  RESIDENTIAL
+  CONDO
+}
+
+enum UserType {
+  BUYER
+  REALTOR
+  ADMIN
+}

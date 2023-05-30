@@ -1,0 +1,12 @@
+stopped at 7:28:11
+
+Signup logic
+1. Validate the data body we get from the user
+2. Validate that the email is not in use
+3. Hash the password
+4. Store the user in the db
+
+Signin logic
+1. Find the user by email
+2. Validate the hashed password
+3. return a jwt
