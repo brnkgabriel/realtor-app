@@ -1,4 +1,4 @@
-stopped at 7:28:11
+stopped at 8:12:28
 
 Signup logic
 1. Validate the data body we get from the user
@@ -10,3 +10,21 @@ Signin logic
 1. Find the user by email
 2. Validate the hashed password
 3. return a jwt
+
+// If you get vercel deployment error that looks like below:
+This Serverless Function has crashed.
+
+Your connection is working correctly.
+
+Vercel is working correctly.
+
+Check your build log to be sure what the problem is
+- It could be you need to replace import paths from "src/home" to "../home" replace "src" with ".."
+- It could be due to prisma post install script. include the following in your package.json:
+{
+  ...
+  "scripts" {
+    "postinstall": "prisma generate"
+  }
+  ...
+}
