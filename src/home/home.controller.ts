@@ -2,10 +2,10 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, U
 import { HomeService } from './home.service';
 import { CreateHomeDto, GetHomesParam, HomeResponseDto, UpdateHomeDto } from './dto/home.dto';
 import { PropertyType, UserType } from '@prisma/client';
-import { User } from 'src/user/decorators/user.decorator';
-import { iUser } from 'src/user/decorators/user.decorator';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { Roles } from 'src/decorators/roles.decorator';
+import { User } from '../user/decorators/user.decorator';
+import { iUser } from '../user/decorators/user.decorator';
+import { AuthGuard } from '../guards/auth.guard';
+import { Roles } from '../decorators/roles.decorator';
 
 @Controller('home')
 export class HomeController {

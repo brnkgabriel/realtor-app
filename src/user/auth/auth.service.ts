@@ -1,5 +1,5 @@
 import { ConflictException, HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { ProductKeyDto, SigninDto, SignupDto } from '../dtos/auth.dto';
 import * as jwt from 'jsonwebtoken'
 import * as bcrypt from 'bcryptjs'

@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import * as jwt from 'jsonwebtoken'
-import { PrismaService } from "src/prisma/prisma.service";
-import { iUser } from "src/user/decorators/user.decorator";
+import { PrismaService } from "../prisma/prisma.service";
+import { iUser } from "../user/decorators/user.decorator";
 
 @Injectable()
 export class AuthGuard implements CanActivate{
@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate{
         const user = await this.prismaService.user.findUnique({
           where: { id: payload.id }
         })
-        
+
         console.log("user", user)
 
         if (!user) return false

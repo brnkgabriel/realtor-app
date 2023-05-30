@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException, NotImplementedException, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateHomeDto, GetHomesParam, HomeResponseDto, UpdateHomeDto } from './dto/home.dto';
-import { iUser } from 'src/user/decorators/user.decorator';
 
 @Injectable()
 export class HomeService {
