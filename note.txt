@@ -1,4 +1,4 @@
-stopped at 8:12:28
+stopped at 8:34:19
 
 Signup logic
 1. Validate the data body we get from the user
@@ -29,4 +29,9 @@ Check your build log to be sure what the problem is
   ...
 }
 - It could be you need to "pnpm install -D @types/jsonwebtoken" to fix a jwt.decode is not a function error. And also import it like so:
-import jwt from "jsonwebtoken" instead of import * as jwt from "jsonwebtoken"
+
+import jwt from "jsonwebtoken" (works only in production)
+
+instead of
+
+import * as jwt from "jsonwebtoken" (works only in development)

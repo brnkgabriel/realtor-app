@@ -1,5 +1,10 @@
 import { CallHandler, ExecutionContext, NestInterceptor } from "@nestjs/common";
-import jwt from 'jsonwebtoken'
+
+// works only in development
+import * as jwt from 'jsonwebtoken';
+
+// works only in production
+// import jwt from 'jsonwebtoken'
 
 export class UserInterceptor implements NestInterceptor {
   async intercept(

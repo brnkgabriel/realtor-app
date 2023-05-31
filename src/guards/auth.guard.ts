@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate{
   constructor(
     private readonly reflector: Reflector,
     private readonly prismaService: PrismaService
-  ) {}
+  ) {} 
 
   async canActivate(context: ExecutionContext) {
     // 1) Determine the UserTypes that can execute the called endpoint
@@ -41,6 +41,6 @@ export class AuthGuard implements CanActivate{
     }
     // 3) Database request to get user by id
     // 4) Determine if the user has permissions
-    return false
+    return true
   }
 }

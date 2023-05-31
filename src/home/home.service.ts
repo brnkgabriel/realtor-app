@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, NotImplementedException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateHomeDto, GetHomesParam, HomeResponseDto, UpdateHomeDto } from './dto/home.dto';
+import { iUser } from 'src/user/decorators/user.decorator';
 
 @Injectable()
 export class HomeService {
@@ -130,11 +131,11 @@ export class HomeService {
   }
 
   async isAuthorized(homeId: number, userId: number) {
-    const realtor = await this.getRealtorByHomeId(homeId)
+    const realtor = await this.getRealtorByHomeId(homeId) 
     console.log("realtor id", realtor.id, "userId", userId)
     return realtor.id === userId
   }
-
+ 
   async getRealtorByHomeId(id: number) {
 
     const where = { id }
@@ -157,5 +158,34 @@ export class HomeService {
     }
 
     return home.realtor
+  }
+
+  async inquire(buyer: iUser, homeId: number, message: string) {
+    const realtor = await this.getRealtorByHomeId(homeId)
+    return await this.prismaService.message.create({
+      data: {
+        realtorId: realtor.id,
+        buyerId: buyer.id,
+        homeId,
+        message
+      }
+    })
+  }
+
+  async getMessagesByHome(homeId: number) {
+    const messages = await this.prismaService.message.findMany({
+      where: { homeId },
+      select: {
+        message: true,
+        buyer: {
+          select: {
+            name: true,
+            phone: true,
+            email: true
+          }
+        }
+      }
+    })
+    return messages
   }
 }
