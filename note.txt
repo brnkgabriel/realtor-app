@@ -1,4 +1,4 @@
-stopped at 8:34:19
+stopped at 9:05:52
 
 Signup logic
 1. Validate the data body we get from the user
@@ -20,6 +20,18 @@ Vercel is working correctly.
 
 Check your build log to be sure what the problem is
 - It could be you need to replace import paths from "src/home" to "../home" replace "src" with ".."
+- Better still update Jest configuration in package.json with the following
+{
+  ...
+  "jest": {
+    ...
+    "rootDir": "./",
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    ...
+  }
+}
 - It could be due to prisma post install script. include the following in your package.json:
 {
   ...

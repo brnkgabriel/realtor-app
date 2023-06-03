@@ -3,6 +3,22 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateHomeDto, GetHomesParam, HomeResponseDto, UpdateHomeDto } from './dto/home.dto';
 import { iUser } from 'src/user/decorators/user.decorator';
 
+export const homeSelect = {
+  id: true,
+  address: true,
+  city: true,
+  price: true,
+  propertyType: true,
+  numOfBathrooms: true,
+  numOfBedrooms: true,
+  images: {
+    select: {
+      url: true
+    },
+    take: 1
+  }
+}
+
 @Injectable()
 export class HomeService {
   constructor(
@@ -14,21 +30,7 @@ export class HomeService {
     const { city, maxPrice, minPrice, propertyType } = filter
 
     const homes = await this.prismaService.home.findMany({
-      select: {
-        id: true,
-        address: true,
-        city: true,
-        price: true,
-        propertyType: true,
-        numOfBathrooms: true,
-        numOfBedrooms: true,
-        images: {
-          select: {
-            url: true
-          },
-          take: 1
-        }
-      },
+      select: homeSelect,
       where: {
         city: {
           endsWith: city || '',
@@ -46,7 +48,7 @@ export class HomeService {
       throw new NotFoundException()
     }
     return homes.map(home => {
-      const fetchHome = { ...home, image: home.images[0].url }
+      const fetchHome = { ...home, image: home?.images[0]?.url }
       delete fetchHome.images
       return new HomeResponseDto(fetchHome)
     })

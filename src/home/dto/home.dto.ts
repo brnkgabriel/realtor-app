@@ -26,7 +26,7 @@ export class HomeResponseDto {
 
   constructor(partial: Partial<HomeResponseDto>) {
     Object.assign(this, partial)
-  }
+  } 
 }
 
 export interface GetHomesParam {
